@@ -34,7 +34,7 @@ LL graph[max_num_of_vertices][max_num_of_vertices];//graph[i][j] - cost of edge 
 const LL INF=1000000000; //infty
 const int source=0;//home vertex, it could be any vertex
 LL num_of_vertices;
-
+VI hamilton_walk;
 LL tab[1<<max_num_of_vertices][max_num_of_vertices];
 //bitmask - set of visited vertices, end - the last vertex to visit
 LL solve(int bitmask,int end){
@@ -46,9 +46,37 @@ LL solve(int bitmask,int end){
                               solve(bitmask xor (1<<end), vertex )+graph[vertex][end]);
     return tab[bitmask][end];
 }
+
+//implemented http://codeforces.com/blog/entry/337 1)
+bool find_hamilton_walk(int bitmask,int end,LL cost){
+    if(cost==0) {
+        hamilton_walk.PB(end);
+        return true;
+    }
+    bool found=false;
+    hamilton_walk.PB(end);
+    //if(bitmask == 0 ) return  true;
+//    if(bitmask == (1<<end) and SIZE(hamilton_walk)==num_of_vertices and graph[end][source]==cost) {
+//        hamilton_walk.PB(source);
+//        return true;
+//    }
+    REP(vertex,num_of_vertices){
+        if((cost==tab[bitmask xor (1<<end)][vertex]+graph[vertex][end] and end!=vertex)
+//           or(bitmask==(1<<end) and cost == graph[vertex][end])
+           )
+        if(find(ALL(hamilton_walk),vertex)==hamilton_walk.end() or SIZE(hamilton_walk)>=num_of_vertices-3)
+        {
+            found=find_hamilton_walk(bitmask xor (1<<end), vertex, cost-graph[vertex][end]);
+            if(found) break;
+        }
+        
+    }
+    if(!found) hamilton_walk.pop_back();
+    return found;
+}
 int main (int argc, char * const argv[]) {
 #ifndef ONLINE_JUDGE
-	if(!freopen("12cities_symetric.txt", "r", stdin)) cout<<"Blad odczytu in.txt"<<endl;
+	if(!freopen("11cities_symetric.txt", "r", stdin)) cout<<"Blad odczytu in.txt"<<endl;
 #endif
 	ios_base::sync_with_stdio(0);
     
@@ -67,16 +95,24 @@ int main (int argc, char * const argv[]) {
     
     
     REP(vertex,num_of_vertices)
-    tab[1<<vertex][vertex]=graph[source][vertex];
+    tab[1<<vertex][vertex]=graph[source][vertex],tab[0][vertex]=0;
     time_point<system_clock> start,end;
     start=system_clock::now();
     LL min_cost=solve( (1<<num_of_vertices) -1 ,source);
+    cout<<"znalazlem"<<find_hamilton_walk((1<<num_of_vertices) -1 ,source, min_cost)<<endl;
     end=system_clock::now();
     duration<double> elapsed_time=end-start;
     if(min_cost>=INF) cout<<"NO HAMILTON CYCLE!"<<endl;
     else{
         cout<<"min cost "<<min_cost<<endl;
-        cout<<"Computed in: "<<elapsed_time.count()<<" seconds.";
+        FOREACH(it,hamilton_walk) cout<<*it<<" ";
+        cout<<endl<<"Computed in: "<<elapsed_time.count()<<" seconds.";
     }
+    VI tt={0, 7, 1, 8, 6, 2, 5, 10, 4 ,3, 9 ,0 };
+    int odp=0;
+    FOR(i,0,SIZE(tt)-2)
+    odp+=graph[tt[i]][tt[i+1]];
+    cout<<"suma "<<odp<<endl;
+    cout<<"wart maski "<<tab[0][3];
     return 0;
 }
