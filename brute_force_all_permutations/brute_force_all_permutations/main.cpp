@@ -58,21 +58,32 @@ int main (int argc, char * const argv[]) {
         //consider memoring also max cost and calculating average cost
         //calculate the cost
         LL cost=0;
+//        try{
         REP(index,num_of_vertices){
-            if(index==num_of_vertices-1)
+            if(index==num_of_vertices-1){
+//                if(graph[vertices[num_of_vertices-1]][vertices[0]]==INF) throw -1;
                 cost+=graph[vertices[num_of_vertices-1]][vertices[0]];
-            else
+            }
+            else{
+//                if(graph[vertices[index]][vertices[index+1]]==INF) throw -1;
                 cost+=graph[vertices[index]][vertices[index+1]];
+            }
         }
-        
+    
+//        catch(...){
+//            
+//        }
+    
         if(cost<min_cost)
             best_vertices_order=vertices,min_cost=cost;
     }
+    if(min_cost>=INF) cout<<"NO HAMILTON CYCLE!"<<endl;
+    else{
     cout<<"min cost "<<min_cost<<endl<<"vertices order: ";
     FOREACH(it, best_vertices_order)
         cout<<*it<<" ";
     cout<<best_vertices_order[0];
-    
+    }
     
     return 0;
 }
