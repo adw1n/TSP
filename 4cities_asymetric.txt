@@ -1,0 +1,8 @@
+4
+0  11   6   9
+   7   0   8   2
+   7   3   0   3
+  10   9   4   0
+//asymetric!!!!!!!
+//http://people.sc.fsu.edu/~jburkardt/datasets/cities/co04_dist.txt
+//http://people.sc.fsu.edu/~jburkardt/datasets/cities/co04_main.txt
