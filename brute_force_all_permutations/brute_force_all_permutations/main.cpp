@@ -88,8 +88,7 @@ int main (int argc, char * const argv[]) {
         FOREACH(it, best_vertices_order)
             cout<<*it<<" ";
         cout<<best_vertices_order[0]<<endl;
-        cout<<"Computed in: "<<elapsed_time.count()<<" seconds.";
+        cout<<"Computed in: "<<elapsed_time.count()<<" seconds."<<endl;
     }
-    
     return 0;
 }
