@@ -1,7 +1,5 @@
-//repetiti
-//przyjmuje input w formie liczba_wierzcholkow i tablica liczba_wierzcholkow x liczba_wierzcholkow gdzie komorka o indeksach i,j odpowiada kosztowi przejscia z i do
-//dziala poprawnie dla symetrycznego i niesymetrycznego
-//bez postojow
+//imput - number of vertices followed by adjacency matrix
+//works both for symetric and asymetric
 #include <cstdio>
 #include <iostream>
 #include <algorithm>
