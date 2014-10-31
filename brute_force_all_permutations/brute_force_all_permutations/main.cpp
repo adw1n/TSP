@@ -14,8 +14,9 @@
 #include <map>
 #include <cmath>
 #include <functional> 
+#include <chrono>
 using namespace std;
-
+using namespace chrono;
 typedef vector<int> VI;
 typedef long long LL;
 
@@ -33,7 +34,7 @@ typedef long long LL;
 LL graph[1000][1000];
 int main (int argc, char * const argv[]) {
 #ifndef ONLINE_JUDGE
-	if(!freopen("6cities_asymetric.txt", "r", stdin)) cout<<"Blad odczytu in.txt"<<endl;
+	if(!freopen("12cities_symetric.txt", "r", stdin)) cout<<"Blad odczytu in.txt"<<endl;
 	//if(!freopen("out.txt", "w", stdout)) cout<<"Blad pliku wyjsciowego"<<endl;
 #endif
 	ios_base::sync_with_stdio(0);
@@ -53,6 +54,8 @@ int main (int argc, char * const argv[]) {
     }
     VI best_vertices_order;
     LL min_cost=INF;
+    time_point<system_clock> start,end;
+    start=system_clock::now();
     //does SIZE(ALL(vertices))! permutations = num_of_vertices!
     while (next_permutation(ALL(vertices))) {
         //consider memoring also max cost and calculating average cost
@@ -77,12 +80,15 @@ int main (int argc, char * const argv[]) {
         if(cost<min_cost)
             best_vertices_order=vertices,min_cost=cost;
     }
+    end=system_clock::now();
+    duration<double> elapsed_time=end-start;
     if(min_cost>=INF) cout<<"NO HAMILTON CYCLE!"<<endl;
     else{
-    cout<<"min cost "<<min_cost<<endl<<"vertices order: ";
-    FOREACH(it, best_vertices_order)
-        cout<<*it<<" ";
-    cout<<best_vertices_order[0];
+        cout<<"min cost "<<min_cost<<endl<<"vertices order: ";
+        FOREACH(it, best_vertices_order)
+            cout<<*it<<" ";
+        cout<<best_vertices_order[0]<<endl;
+        cout<<"Computed in: "<<elapsed_time.count()<<" seconds.";
     }
     
     return 0;
