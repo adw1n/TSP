@@ -48,6 +48,7 @@ LL solve(int bitmask,int end){
 }
 
 //implemented http://codeforces.com/blog/entry/337 1)
+//you need to reverse the order of hamilton_walk when printing when graph is not symetric
 bool find_hamilton_walk(int bitmask,int end,LL cost){
     if(cost==0) {
         hamilton_walk.PB(end);
@@ -74,9 +75,14 @@ bool find_hamilton_walk(int bitmask,int end,LL cost){
     if(!found) hamilton_walk.pop_back();
     return found;
 }
+bool find_best_hamilton_cycle(int bitmask,int end,LL cost){
+    bool found=find_hamilton_walk(bitmask, end, cost);
+    hamilton_walk=vector<int>(hamilton_walk.rbegin(),hamilton_walk.rend());
+    return found;
+}
 int main (int argc, char * const argv[]) {
 #ifndef ONLINE_JUDGE
-	if(!freopen("11cities_symetric.txt", "r", stdin)) cout<<"Blad odczytu in.txt"<<endl;
+	if(!freopen("12cities_symetric.txt", "r", stdin)) cout<<"Blad odczytu in.txt"<<endl;
 #endif
 	ios_base::sync_with_stdio(0);
     
@@ -99,7 +105,7 @@ int main (int argc, char * const argv[]) {
     time_point<system_clock> start,end;
     start=system_clock::now();
     LL min_cost=solve( (1<<num_of_vertices) -1 ,source);
-    cout<<"znalazlem"<<find_hamilton_walk((1<<num_of_vertices) -1 ,source, min_cost)<<endl;
+    find_best_hamilton_cycle((1<<num_of_vertices) -1 ,source, min_cost);
     end=system_clock::now();
     duration<double> elapsed_time=end-start;
     if(min_cost>=INF) cout<<"NO HAMILTON CYCLE!"<<endl;
@@ -108,11 +114,13 @@ int main (int argc, char * const argv[]) {
         FOREACH(it,hamilton_walk) cout<<*it<<" ";
         cout<<endl<<"Computed in: "<<elapsed_time.count()<<" seconds.";
     }
-    VI tt={0, 7, 1, 8, 6, 2, 5, 10, 4 ,3, 9 ,0 };
+//    VI tt={0, 7, 1, 8, 6, 2, 5, 10, 4 ,3, 9 ,0 };
     int odp=0;
-    FOR(i,0,SIZE(tt)-2)
-    odp+=graph[tt[i]][tt[i+1]];
+    FOR(i,0,SIZE(hamilton_walk)-2){
+        cout<<hamilton_walk[i]<<" "<< hamilton_walk[i+1]<<" "<<graph[hamilton_walk[i]][hamilton_walk[i+1]]<< " "<<graph[hamilton_walk[i+1]][hamilton_walk[i]]<<endl;
+    odp+=graph[hamilton_walk[i]][hamilton_walk[i+1]];
+    }
     cout<<"suma "<<odp<<endl;
-    cout<<"wart maski "<<tab[0][3];
+//    cout<<"wart maski "<<tab[0][3];
     return 0;
 }
