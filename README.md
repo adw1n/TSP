@@ -16,6 +16,7 @@ Nearest neighbour - O(n^2)
 Repetitive nearest neighbour O(Nearest neigbour) * O(n) = O(n^3)
 
 Double MST - creates minimum spanning tree and prints out its double weight, which is guaranteed to be max (in worst case) 100% longer path than optimal solution.
+Complexity O(V^2), MST could be done in O(E * logV) but there is no point in doing that here, since we are considering only complete graphs.
 
 
 
