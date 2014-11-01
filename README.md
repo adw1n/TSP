@@ -15,5 +15,7 @@ Given condition that you can visit each city multiple times simply compute dista
 Nearest neighbour - O(n^2)
 Repetitive nearest neighbour O(Nearest neigbour) * O(n) = O(n^3)
 
+Double MST - creates minimum spanning tree and prints out its double weight, which is guaranteed to be max (in worst case) 100% longer path than optimal solution.
+
 
 
