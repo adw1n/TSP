@@ -114,13 +114,13 @@ int main (int argc, char * const argv[]) {
         FOREACH(it,hamilton_walk) cout<<*it<<" ";
         cout<<endl<<"Computed in: "<<elapsed_time.count()<<" seconds.";
     }
-    VI tt={8, 6 ,10 ,4, 2, 9 ,0 ,5 ,7 ,11, 3 ,1, 8};
-    int odp=0;
-    FOR(i,0,SIZE(tt)-2){
-        cout<<tt[i]<<" "<< tt[i+1]<<" "<<graph[tt[i]][tt[i+1]]<< " "<<graph[tt[i+1]][tt[i]]<<endl;
-    odp+=graph[tt[i]][tt[i+1]];
-    }
-    cout<<"suma "<<odp<<endl;
+//    VI tt={8, 6 ,10 ,4, 2, 9 ,0 ,5 ,7 ,11, 3 ,1, 8};
+//    int odp=0;
+//    FOR(i,0,SIZE(tt)-2){
+//        cout<<tt[i]<<" "<< tt[i+1]<<" "<<graph[tt[i]][tt[i+1]]<< " "<<graph[tt[i+1]][tt[i]]<<endl;
+//    odp+=graph[tt[i]][tt[i+1]];
+//    }
+//    cout<<"suma "<<odp<<endl;
 //    cout<<"wart maski "<<tab[0][3];
     return 0;
 }
