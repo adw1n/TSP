@@ -29,9 +29,10 @@ typedef long long LL;
 #define ND second
 #define MP make_pair
 vector<set<pair<LL,LL> > > graph; //pair::first cost, pair::second vertex num
+vector<VI > tab;
 int main (int argc, char * const argv[]) {
 #ifndef ONLINE_JUDGE
-	if(!freopen("11cities_symetric.txt", "r", stdin)) cout<<"Blad odczytu in.txt"<<endl;
+	if(!freopen("12cities_symetric.txt", "r", stdin)) cout<<"Blad odczytu in.txt"<<endl;
 	//if(!freopen("out.txt", "w", stdout)) cout<<"Blad pliku wyjsciowego"<<endl;
 #endif
 	ios_base::sync_with_stdio(0);
@@ -41,20 +42,23 @@ int main (int argc, char * const argv[]) {
 	VI vertices_order;
     vector<bool> visited(num_of_vertices,false);//1 means that you have visited
     graph.resize(num_of_vertices);
+    tab.resize(num_of_vertices,VI(num_of_vertices,0));
     LL cost;
     REP(row,num_of_vertices){
         REP(column, num_of_vertices){
             cin>>cost;
             if(cost<=0) cost=INF;
             graph[row].insert(MP(cost,column));
+            tab[row][column]=cost;
         }
     }
-    LL num_of_visited_vertices=0;
+    LL num_of_visited_vertices=1;
     //chosing vertex num 0 always as the starting vertex
     LL current_vertex=0;
     cost=0;
+    visited[current_vertex]=true;
+    vertices_order.PB(current_vertex);
     while (num_of_visited_vertices<num_of_vertices) {
-        vertices_order.PB(current_vertex);
         FOREACH(it, graph[current_vertex]){
             if(!visited[it->second]){//vertex has not been visited yet
                 visited[it->second]=true;
@@ -64,13 +68,16 @@ int main (int argc, char * const argv[]) {
                 break;
             }
         }
+        vertices_order.PB(current_vertex);
     }
+    cost+=tab[vertices_order[0]][vertices_order[SIZE(vertices_order)-1]];
+    vertices_order.PB(vertices_order[0]);
+    
     
     cout<<"WARNING! NO GUARANTEE FOR OPTIMAL SOLUTION!"<<endl;
     cout<<"min cost "<<cost<<endl<<"vertices order: ";
     FOREACH(it, vertices_order)
     cout<<*it<<" ";
-    cout<<vertices_order[0];
     
     
     return 0;

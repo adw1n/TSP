@@ -82,7 +82,7 @@ bool find_best_hamilton_cycle(int bitmask,int end,LL cost){
 }
 int main (int argc, char * const argv[]) {
 #ifndef ONLINE_JUDGE
-	if(!freopen("12cities_symetric.txt", "r", stdin)) cout<<"Blad odczytu in.txt"<<endl;
+	if(!freopen("11cities_symetric.txt", "r", stdin)) cout<<"Blad odczytu in.txt"<<endl;
 #endif
 	ios_base::sync_with_stdio(0);
     
