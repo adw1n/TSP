@@ -57,7 +57,7 @@ bool find_hamilton_walk(int bitmask,int end,LL cost){
     hamilton_walk.PB(end);
     REP(vertex,num_of_vertices){
         if((cost==tab[bitmask xor (1<<end)][vertex]+graph[vertex][end] and end!=vertex))
-        if(find(ALL(hamilton_walk),vertex)==hamilton_walk.end() or SIZE(hamilton_walk)>=num_of_vertices-3)
+        if(find(ALL(hamilton_walk),vertex)==hamilton_walk.end() or SIZE(hamilton_walk)==num_of_vertices)
         {
             found=find_hamilton_walk(bitmask xor (1<<end), vertex, cost-graph[vertex][end]);
             if(found) break;
@@ -74,7 +74,7 @@ bool find_best_hamilton_cycle(int bitmask,int end,LL cost){
 }
 int main (int argc, char * const argv[]) {
 #ifndef ONLINE_JUDGE
-	if(!freopen("12cities_symetric.txt", "r", stdin)) cout<<"Blad odczytu in.txt"<<endl;
+	if(!freopen("6cities_asymetric.txt", "r", stdin)) cout<<"Blad odczytu in.txt"<<endl;
 #endif
 	ios_base::sync_with_stdio(0);
     
