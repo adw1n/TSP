@@ -31,8 +31,8 @@ typedef long long LL;
 #define MP make_pair
 const int max_num_of_vertices=18;
 LL graph[max_num_of_vertices][max_num_of_vertices];//graph[i][j] - cost of edge from i to j
-const LL INF=1000000000; //infty
-const int source=0;//home vertex, it could be any vertex
+const LL INF=1000000000;
+const int source=0;//home vertex
 LL num_of_vertices;
 VI hamilton_walk;
 LL tab[1<<max_num_of_vertices][max_num_of_vertices];
@@ -48,7 +48,6 @@ LL solve(int bitmask,int end){
 }
 
 //implemented http://codeforces.com/blog/entry/337 1)
-//you need to reverse the order of hamilton_walk when printing when graph is not symetric
 bool find_hamilton_walk(int bitmask,int end,LL cost){
     if(cost==0) {
         hamilton_walk.PB(end);
@@ -56,15 +55,8 @@ bool find_hamilton_walk(int bitmask,int end,LL cost){
     }
     bool found=false;
     hamilton_walk.PB(end);
-    //if(bitmask == 0 ) return  true;
-//    if(bitmask == (1<<end) and SIZE(hamilton_walk)==num_of_vertices and graph[end][source]==cost) {
-//        hamilton_walk.PB(source);
-//        return true;
-//    }
     REP(vertex,num_of_vertices){
-        if((cost==tab[bitmask xor (1<<end)][vertex]+graph[vertex][end] and end!=vertex)
-//           or(bitmask==(1<<end) and cost == graph[vertex][end])
-           )
+        if((cost==tab[bitmask xor (1<<end)][vertex]+graph[vertex][end] and end!=vertex))
         if(find(ALL(hamilton_walk),vertex)==hamilton_walk.end() or SIZE(hamilton_walk)>=num_of_vertices-3)
         {
             found=find_hamilton_walk(bitmask xor (1<<end), vertex, cost-graph[vertex][end]);
@@ -82,7 +74,7 @@ bool find_best_hamilton_cycle(int bitmask,int end,LL cost){
 }
 int main (int argc, char * const argv[]) {
 #ifndef ONLINE_JUDGE
-	if(!freopen("6cities_asymetric.txt", "r", stdin)) cout<<"Blad odczytu in.txt"<<endl;
+	if(!freopen("12cities_symetric.txt", "r", stdin)) cout<<"Blad odczytu in.txt"<<endl;
 #endif
 	ios_base::sync_with_stdio(0);
     
@@ -114,13 +106,5 @@ int main (int argc, char * const argv[]) {
         FOREACH(it,hamilton_walk) cout<<*it<<" ";
         cout<<endl<<"Computed in: "<<elapsed_time.count()<<" seconds.";
     }
-//    VI tt={8, 6 ,10 ,4, 2, 9 ,0 ,5 ,7 ,11, 3 ,1, 8};
-//    int odp=0;
-//    FOR(i,0,SIZE(tt)-2){
-//        cout<<tt[i]<<" "<< tt[i+1]<<" "<<graph[tt[i]][tt[i+1]]<< " "<<graph[tt[i+1]][tt[i]]<<endl;
-//    odp+=graph[tt[i]][tt[i+1]];
-//    }
-//    cout<<"suma "<<odp<<endl;
-//    cout<<"wart maski "<<tab[0][3];
     return 0;
 }
