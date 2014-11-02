@@ -1,5 +1,5 @@
 //imput - number of vertices followed by adjacency matrix
-//works both for symetric and asymetric
+//works only for symetric
 #include <cstdio>
 #include <iostream>
 #include <algorithm>
@@ -13,11 +13,10 @@
 #include <cmath>
 #include <functional>
 #include <tuple>
+#include <cassert>
 using namespace std;
 
-typedef long long LL;
-typedef vector<LL> VI;
-
+typedef vector<int> VI;
 
 #define FOR(x, b, e) for(int x = b; x <= (e); ++x)
 #define FORD(x, b, e) for(int x = b; x >= (e); --x)
@@ -31,35 +30,36 @@ typedef vector<LL> VI;
 #define ND second
 #define MP make_pair
 //kinda implemented http://www.geeksforgeeks.org/greedy-algorithms-set-5-prims-minimum-spanning-tree-mst-2/
-//all credit goes to author of that post
-
-//create generic class
+//all credit goes to the author of that post
+template<class T>
 class Graph{
-    
-    vector<VI > adj;//adjacency matrix
+    vector<vector<T> > adj;//adjacency matrix
     VI parent;
-    VI key;//distance to the set of chosen vertices so far
+    vector<T> key;//distance to the set of chosen vertices so far
     vector<bool> visited;
     int size;
-    const LL INF=1000000000; //infty
+    const int INF=1000000000; //infty
 public:
-    Graph(int size): size(size), adj(size,VI(size,0)),parent(size),key(size,INF),visited(size,false) {
+    Graph(int size): size(size), adj(size,vector<T>(size,0)) {
     }
     void addEdge(int v1,int v2,int cost){
-        //        if(v1<size and v2<size)
+        assert(v1<size and v2<size);
         adj[v1][v2]=cost;
-        //else error
     }
     int findMinKey(){
-        LL min=INF, best_vertex;
+        int min=INF, best_vertex=-1;
         REP(vertex,size)
         if( (!visited[vertex]) and key[vertex]<min)
             best_vertex=vertex,min=key[vertex];
         return best_vertex;
     }
-    //add initializing everything - u might wanna change an edge and later ask about MST again
-    void MST(){
-        //        REP(x,size) key[x]=INF,visited[x]=false;
+    void init(){
+        parent=VI(size,0);
+        key=vector<T>(size,INF);
+        visited=vector<bool>(size,false);
+    }
+    T MST(){
+        init();
         key[0]=0;
         parent[0]=-1;
         REP(i,size-1){
@@ -69,29 +69,25 @@ public:
             if(adj[curr_vertex][vertex] and visited[vertex]==false and adj[curr_vertex][vertex]<key[vertex])
                 parent[vertex]=curr_vertex,key[vertex]=adj[curr_vertex][vertex];
         }
-        printMST();
-    }
-    void printMST(){
-        LL ans=0;
-        //need to do dfs on graph
+        T ans=0;
         FOR(vertex,1,size-1)  {
-            cout<<vertex<<" "<<parent[vertex]<<" "<<endl;
             ans+=adj[parent[vertex]][vertex];
         }
-        cout<<endl<<"min "<<ans<<endl;
+        return ans;
     }
+
 };
 int main (int argc, char * const argv[]) {
 #ifndef ONLINE_JUDGE
-	if(!freopen("6cities_asymetric.txt", "r", stdin)) cout<<"Blad odczytu in.txt"<<endl;
+	if(!freopen("12cities_symetric.txt", "r", stdin)) cout<<"Blad odczytu in.txt"<<endl;
 	//if(!freopen("out.txt", "w", stdout)) cout<<"Blad pliku wyjsciowego"<<endl;
 #endif
 	ios_base::sync_with_stdio(0);
-	LL num_of_vertices;
+	int num_of_vertices;
     
     cin>>num_of_vertices;
-    Graph graph(num_of_vertices);
-    LL cost;
+    Graph<int> graph(num_of_vertices);
+    int cost;
     REP(row,num_of_vertices){
         REP(column, num_of_vertices){
             cin>>cost;
@@ -99,12 +95,6 @@ int main (int argc, char * const argv[]) {
         }
     }
     cout<<"WARNING! NO GUARANTEE FOR OPTIMAL SOLUTION!"<<endl;
-    graph.MST();
-    //    graph.printMST();
-    //    FOREACH(it, vertices_order)
-    //    cout<<*it<<" ";
-    //    cout<<vertices_order[0];
-    
-    
+    cout<<"Optimal tour has length: "<<2*graph.MST()<<endl;
     return 0;
 }
