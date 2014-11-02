@@ -74,7 +74,7 @@ bool find_best_hamilton_cycle(int bitmask,int end,LL cost){
 }
 int main (int argc, char * const argv[]) {
 #ifndef ONLINE_JUDGE
-	if(!freopen("6cities_asymetric.txt", "r", stdin)) cout<<"Blad odczytu in.txt"<<endl;
+	if(!freopen("12cities_symetric.txt", "r", stdin)) cout<<"Blad odczytu in.txt"<<endl;
 #endif
 	ios_base::sync_with_stdio(0);
     
@@ -93,7 +93,7 @@ int main (int argc, char * const argv[]) {
     
     
     REP(vertex,num_of_vertices)
-    tab[1<<vertex][vertex]=graph[source][vertex],tab[0][vertex]=0;
+    tab[1<<vertex][vertex]=graph[source][vertex],tab[source][vertex]=0;
     time_point<system_clock> start,end;
     start=system_clock::now();
     LL min_cost=solve( (1<<num_of_vertices) -1 ,source);
