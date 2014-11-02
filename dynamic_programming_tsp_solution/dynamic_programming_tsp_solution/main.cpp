@@ -82,7 +82,7 @@ bool find_best_hamilton_cycle(int bitmask,int end,LL cost){
 }
 int main (int argc, char * const argv[]) {
 #ifndef ONLINE_JUDGE
-	if(!freopen("11cities_symetric.txt", "r", stdin)) cout<<"Blad odczytu in.txt"<<endl;
+	if(!freopen("6cities_asymetric.txt", "r", stdin)) cout<<"Blad odczytu in.txt"<<endl;
 #endif
 	ios_base::sync_with_stdio(0);
     
@@ -114,11 +114,11 @@ int main (int argc, char * const argv[]) {
         FOREACH(it,hamilton_walk) cout<<*it<<" ";
         cout<<endl<<"Computed in: "<<elapsed_time.count()<<" seconds.";
     }
-//    VI tt={0, 7, 1, 8, 6, 2, 5, 10, 4 ,3, 9 ,0 };
+    VI tt={8, 6 ,10 ,4, 2, 9 ,0 ,5 ,7 ,11, 3 ,1, 8};
     int odp=0;
-    FOR(i,0,SIZE(hamilton_walk)-2){
-        cout<<hamilton_walk[i]<<" "<< hamilton_walk[i+1]<<" "<<graph[hamilton_walk[i]][hamilton_walk[i+1]]<< " "<<graph[hamilton_walk[i+1]][hamilton_walk[i]]<<endl;
-    odp+=graph[hamilton_walk[i]][hamilton_walk[i+1]];
+    FOR(i,0,SIZE(tt)-2){
+        cout<<tt[i]<<" "<< tt[i+1]<<" "<<graph[tt[i]][tt[i+1]]<< " "<<graph[tt[i+1]][tt[i]]<<endl;
+    odp+=graph[tt[i]][tt[i+1]];
     }
     cout<<"suma "<<odp<<endl;
 //    cout<<"wart maski "<<tab[0][3];
