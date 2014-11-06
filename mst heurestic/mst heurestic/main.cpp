@@ -95,6 +95,7 @@ int main (int argc, char * const argv[]) {
         }
     }
     cout<<"WARNING! NO GUARANTEE FOR OPTIMAL SOLUTION!"<<endl;
-    cout<<"Optimal tour has length: "<<2*graph.MST()<<endl;
+    int ans=graph.MST();
+    cout<<ans<<"<=optimal tour length<="<<2*ans <<endl;
     return 0;
 }
