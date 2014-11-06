@@ -16,7 +16,8 @@ Nearest neighbour - O(n^2logn)
 Repetitive nearest neighbour O(Nearest neigbour) * O(n) = O(n^3logn)
 Both work for directed and undirected graphs.
 
-Double MST - creates minimum spanning tree and prints out its double weight, which is guaranteed to be max (in worst case) 100% longer path than the optimal solution.
+Double MST - creates minimum spanning tree and prints out its double weight, which is guaranteed to be max (in worst case) 100% longer path than the optimal solution (only when triangle-inequality holds)
+"Without the triangle inequality, a polynomial time approximate algorithm with constant approximation ratio not exist unless P=NP."
 Complexity O(V^2), MST could be done in O(E * logV) but there is no point in doing that here, since we are considering only complete graphs. It works ofc only for undirected graphs.
 
 12cities_symetric.txt 
