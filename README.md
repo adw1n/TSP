@@ -27,7 +27,7 @@ Double MST - creates minimum spanning tree, then does n (each vertex as the star
 
 Important fact: "Without the triangle inequality, a polynomial time approximate algorithm with constant approximation ratio not exist unless P=NP."
 We leave the proof as an exercise for the reader.
-
+---
 12cities_symetric.txt 
 
 optimal tour found by both dp and all permutations: 1733
@@ -40,8 +40,8 @@ Nearest neighbour 2110
 
 repetitive nearest neighbour 1733 (optimal) but other vertices order than dp or all permutations algorithm
 
-
-11cities_symetric.txt (no triangle-inequality)
+---
+11cities_symetric.txt (no triangle-inequality proved by MST and optimal results)
 
 brute force 1675
 
