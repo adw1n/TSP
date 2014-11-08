@@ -14,6 +14,7 @@
 #include <functional>
 #include <tuple>
 #include <cassert>
+#include "Tree.h"
 using namespace std;
 
 typedef vector<int> VI;
@@ -39,8 +40,9 @@ class Graph{
     vector<bool> visited;
     int size;
     const int INF=1000000000; //infty
+    Tree tree;
 public:
-    Graph(int size): size(size), adj(size,vector<T>(size,0)) {
+    Graph(int size): size(size), adj(size,vector<T>(size,0)),tree(size) {
     }
     void addEdge(int v1,int v2,int cost){
         assert(v1<size and v2<size);
@@ -58,7 +60,7 @@ public:
         key=vector<T>(size,INF);
         visited=vector<bool>(size,false);
     }
-    T MST(){
+    pair<T,vector<int>> MST(){
         init();
         key[0]=0;
         parent[0]=-1;
@@ -71,15 +73,33 @@ public:
         }
         T ans=0;
         FOR(vertex,1,size-1)  {
+            tree.addEdge(parent[vertex], vertex);
+            cout<<"edge: "<<parent[vertex]<<" "<<vertex<<endl;
             ans+=adj[parent[vertex]][vertex];
         }
-        return ans;
+        vector<vector<int> > possible_traversals=tree.dfs_all();
+        int best_start=0;
+        T min=INF;
+        REP(start,SIZE(possible_traversals)){
+            T poss_min=0;
+            cout<<"start: "<<start<<endl;
+            REP(vertex,SIZE(possible_traversals[start])){
+                cout<<possible_traversals[start][vertex]<<" ";
+                poss_min+=adj[possible_traversals[start][vertex]][possible_traversals[start][vertex+1]];
+            }
+            if(poss_min<min){
+                min=poss_min;
+                best_start=start;
+            }
+            cout<<"mozliwa wart min: "<<poss_min<<endl;
+        }
+        return make_pair(min,possible_traversals[best_start]);
     }
 
 };
 int main (int argc, char * const argv[]) {
 #ifndef ONLINE_JUDGE
-	if(!freopen("12cities_symetric.txt", "r", stdin)) cout<<"Blad odczytu in.txt"<<endl;
+	if(!freopen("11cities_symetric.txt", "r", stdin)) cout<<"Blad odczytu in.txt"<<endl;
 	//if(!freopen("out.txt", "w", stdout)) cout<<"Blad pliku wyjsciowego"<<endl;
 #endif
 	ios_base::sync_with_stdio(0);
@@ -95,7 +115,11 @@ int main (int argc, char * const argv[]) {
         }
     }
     cout<<"WARNING! NO GUARANTEE FOR OPTIMAL SOLUTION!"<<endl;
-    int ans=graph.MST();
-    cout<<ans<<"<=optimal tour length<="<<2*ans <<endl;
+    auto ans=graph.MST();
+    cout<<ans.ST/2<<"<=optimal tour length<="<<ans.ST <<endl;
+    cout<<"Optimal tour: ";
+    FOREACH(it, ans.ND)
+    cout<<*it<<" ";
+    cout<<endl;
     return 0;
 }

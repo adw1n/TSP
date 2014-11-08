@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A553638F1A05BAA8001339DC /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A553638E1A05BAA8001339DC /* main.cpp */; };
 		A55363911A05BAA8001339DC /* mst_heurestic.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = A55363901A05BAA8001339DC /* mst_heurestic.1 */; };
+		A55363ED1A0E45B9001339DC /* Tree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A55363EB1A0E45B9001339DC /* Tree.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +29,8 @@
 		A553638B1A05BAA8001339DC /* mst heurestic */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "mst heurestic"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A553638E1A05BAA8001339DC /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		A55363901A05BAA8001339DC /* mst_heurestic.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = mst_heurestic.1; sourceTree = "<group>"; };
+		A55363EB1A0E45B9001339DC /* Tree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Tree.cpp; sourceTree = "<group>"; };
+		A55363EC1A0E45B9001339DC /* Tree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tree.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +65,8 @@
 			children = (
 				A553638E1A05BAA8001339DC /* main.cpp */,
 				A55363901A05BAA8001339DC /* mst_heurestic.1 */,
+				A55363EB1A0E45B9001339DC /* Tree.cpp */,
+				A55363EC1A0E45B9001339DC /* Tree.h */,
 			);
 			path = "mst heurestic";
 			sourceTree = "<group>";
@@ -118,6 +123,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A553638F1A05BAA8001339DC /* main.cpp in Sources */,
+				A55363ED1A0E45B9001339DC /* Tree.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -229,6 +235,7 @@
 				A55363961A05BAA8001339DC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
