@@ -20,34 +20,30 @@ class Tree{
     vector<vector<int>> adj;
     vector<bool> visited;
     int start;
-    vector<vector<int> > ans;
+    vector<vector<int> > tsp_tour;
 public:
     Tree(int size){
         adj.resize(size);
-        ans.resize(size);
+        tsp_tour.resize(size);
     }
     void addEdge(int v1,int v2){
         adj[v1].push_back(v2);
         adj[v2].push_back(v1);
-        cout<<"pushbacknalem "<<endl;
     }
     vector<vector<int> > dfs_all(){
         
         for( start=0; start<adj.size();start++){
-            cout<<"start "<<start<< endl;
             visited=vector<bool>(adj.size(),false);
             dfs(start);
-            ans[start].push_back(start);
+            tsp_tour[start].push_back(start);
         }
-        return ans;
+        return tsp_tour;
     }
     void dfs(int vertex){
-        ans[start].push_back(vertex);
+        tsp_tour[start].push_back(vertex);
         visited[vertex]=true;
         for(vector<int>::iterator it=adj[vertex].begin(); it!=adj[vertex].end(); it++){
-//            cout<<"start: "<<start<<" vertex "<<vertex <<"possible "<<*it<<endl;
             if(!visited[*it]){
-                cout<<"start: "<<start<<" vertex "<<vertex <<"it "<<*it<<endl;
                 dfs(*it);
             }
         }

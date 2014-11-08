@@ -71,12 +71,9 @@ public:
             if(adj[curr_vertex][vertex] and visited[vertex]==false and adj[curr_vertex][vertex]<key[vertex])
                 parent[vertex]=curr_vertex,key[vertex]=adj[curr_vertex][vertex];
         }
-        T ans=0;
-        FOR(vertex,1,size-1)  {
+        FOR(vertex,1,size-1)
             tree.addEdge(parent[vertex], vertex);
-            cout<<"edge: "<<parent[vertex]<<" "<<vertex<<endl;
-            ans+=adj[parent[vertex]][vertex];
-        }
+        
         vector<vector<int> > possible_traversals=tree.dfs_all();
         int best_start=0;
         T min=INF;
@@ -99,7 +96,7 @@ public:
 };
 int main (int argc, char * const argv[]) {
 #ifndef ONLINE_JUDGE
-	if(!freopen("11cities_symetric.txt", "r", stdin)) cout<<"Blad odczytu in.txt"<<endl;
+	if(!freopen("6cities_symetric.txt", "r", stdin)) cout<<"Blad odczytu in.txt"<<endl;
 	//if(!freopen("out.txt", "w", stdout)) cout<<"Blad pliku wyjsciowego"<<endl;
 #endif
 	ios_base::sync_with_stdio(0);
@@ -114,10 +111,10 @@ int main (int argc, char * const argv[]) {
             graph.addEdge(row,column,cost);
         }
     }
-    cout<<"WARNING! NO GUARANTEE FOR OPTIMAL SOLUTION!"<<endl;
     auto ans=graph.MST();
-    cout<<ans.ST/2<<"<=optimal tour length<="<<ans.ST <<endl;
-    cout<<"Optimal tour: ";
+    cout<<"WARNING! NO GUARANTEE FOR OPTIMAL SOLUTION!"<<endl;
+    cout<<"Optimal tour length found by mst heuristics: "<<ans.ST <<endl;
+    cout<<"Optimal tour found by MST heuristics: ";
     FOREACH(it, ans.ND)
     cout<<*it<<" ";
     cout<<endl;
