@@ -29,8 +29,28 @@ Important fact: "Without the triangle inequality, a polynomial time approximate 
 We leave the proof as an exercise for the reader.
 
 12cities_symetric.txt 
-optimal found by both dp and all permutations: 1733
-MST 2488
+
+optimal tour found by both dp and all permutations: 1733
+
+brute force multiple visits 1675
+
+MST 2848
+
 Nearest neighbour 2110
+
 repetitive nearest neighbour 1733 (optimal) but other vertices order than dp or all permutations algorithm
 
+
+11cities_symetric.txt (no triangle-inequality)
+
+brute force 1675
+
+brute force multiple visits 1366
+
+dp 1675
+
+MST 3431
+
+Nearest neighbour 2285
+
+repetitive nearest neighbour 2139
