@@ -96,7 +96,7 @@ public:
 };
 int main (int argc, char * const argv[]) {
 #ifndef ONLINE_JUDGE
-	if(!freopen("6cities_symetric.txt", "r", stdin)) cout<<"Blad odczytu in.txt"<<endl;
+	if(!freopen("15cities_symetric.txt", "r", stdin)) cout<<"Blad odczytu in.txt"<<endl;
 	//if(!freopen("out.txt", "w", stdout)) cout<<"Blad pliku wyjsciowego"<<endl;
 #endif
 	ios_base::sync_with_stdio(0);
