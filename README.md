@@ -1,7 +1,7 @@
 TSP
 ===
 
-Traveling salesman problem solutions
+Traveling salesman problem solutions\\
 n or V - num of vertices
 E - num of edges, E=n^2 for this problem
 Brute force (brute_force_all_permutations) - checks all permutations - complexity O(n! * n)
