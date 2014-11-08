@@ -1,12 +1,11 @@
-TSP
+TSP solutions, benchmarks and sample tests
 ===
-
-Traveling salesman problem solutions
 
 n or V - num of vertices
 
 E - num of edges, E=n^2 for this problem
 
+---
 Brute force (brute_force_all_permutations) - checks all permutations - complexity O(n! * n)
 
 DP (dynamic_programming_tsp_solution ) - O(N^2 * 2^N) time and O(N * 2^N) space
@@ -27,6 +26,7 @@ Double MST - creates minimum spanning tree, then does n (each vertex as the star
 
 Important fact: "Without the triangle inequality, a polynomial time approximate algorithm with constant approximation ratio not exist unless P=NP."
 We leave the proof as an exercise for the reader.
+
 ---
 12cities_symetric.txt 
 
