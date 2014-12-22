@@ -14,8 +14,9 @@
 #include <map>
 #include <cmath>
 #include <functional>
+#include <chrono>
 using namespace std;
-
+using namespace chrono;
 typedef vector<int> VI;
 typedef long long LL;
 
@@ -33,7 +34,7 @@ typedef long long LL;
 LL graph[1000][1000];
 int main (int argc, char * const argv[]) {
 #ifndef ONLINE_JUDGE
-	if(!freopen("11cities_symetric.txt", "r", stdin)) cout<<"Blad odczytu in.txt"<<endl;
+	if(!freopen("10cities_symmetric.txt", "r", stdin)) cout<<"Blad odczytu in.txt"<<endl;
 	//if(!freopen("out.txt", "w", stdout)) cout<<"Blad pliku wyjsciowego"<<endl;
 #endif
 	ios_base::sync_with_stdio(0);
@@ -51,7 +52,9 @@ int main (int argc, char * const argv[]) {
         if(cost<=0) cost=INF;
         graph[row][column]=cost;
     }
-    //using floyd-warshall to find shortest paths between all vertices
+    time_point<system_clock> start,end;
+    start=system_clock::now();
+    //using floyd-warshall to find shortest paths between all vertices, we do not print this out tho in the Hamilton cycle
     REP(k,num_of_vertices)
     REP(i,num_of_vertices)
     REP(j,num_of_vertices)
@@ -59,32 +62,26 @@ int main (int argc, char * const argv[]) {
     
     VI best_vertices_order;
     LL min_cost=INF;
-    //does SIZE(ALL(vertices))! permutations = num_of_vertices!
     while (next_permutation(ALL(vertices))) {
-        //consider memoring also max cost and calculating average cost
         //calculate the cost
         LL cost=0;
-        //        try{
         REP(index,num_of_vertices){
             if(index==num_of_vertices-1){
-                //                if(graph[vertices[num_of_vertices-1]][vertices[0]]==INF) throw -1;
                 cost+=graph[vertices[num_of_vertices-1]][vertices[0]];
             }
             else{
-                //                if(graph[vertices[index]][vertices[index+1]]==INF) throw -1;
                 cost+=graph[vertices[index]][vertices[index+1]];
             }
         }
-        
-        //        catch(...){
-        //
-        //        }
-        
         if(cost<min_cost)
             best_vertices_order=vertices,min_cost=cost;
     }
+    end=system_clock::now();
+    duration<double> elapsed_time=end-start;
     if(min_cost>=INF) cout<<"NO HAMILTON CYCLE!"<<endl;
     else{
+        cout<<"Computed in: "<<elapsed_time.count()<<" seconds."<<endl;
+
         cout<<"min cost "<<min_cost<<endl<<"vertices order: ";
         FOREACH(it, best_vertices_order)
         cout<<*it<<" ";

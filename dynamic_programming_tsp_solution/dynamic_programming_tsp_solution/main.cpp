@@ -29,7 +29,7 @@ typedef long long LL;
 #define ST first
 #define ND second
 #define MP make_pair
-const int max_num_of_vertices=18;
+const int max_num_of_vertices=24;
 LL graph[max_num_of_vertices][max_num_of_vertices];//graph[i][j] - cost of edge from i to j
 const LL INF=1000000000;
 const int source=0;//home vertex
@@ -74,14 +74,18 @@ bool find_best_hamilton_cycle(int bitmask,int end,LL cost){
 }
 int main (int argc, char * const argv[]) {
 #ifndef ONLINE_JUDGE
-	if(!freopen("15cities_symetric.txt", "r", stdin)) cout<<"Blad odczytu in.txt"<<endl;
+	if(!freopen("8cities_symetric.txt", "r", stdin)) cout<<"Blad odczytu in.txt"<<endl;
 #endif
 	ios_base::sync_with_stdio(0);
-    
+    time_point<system_clock> start,end;
+    start=system_clock::now();
     memset(tab, -1, sizeof(tab));
     
     cin>>num_of_vertices;
-	
+	if(num_of_vertices> max_num_of_vertices) {
+        cout<<"too large number of vertices! ";
+        return 0;
+    }
     LL cost;
     REP(row,num_of_vertices)
     REP(column, num_of_vertices)
@@ -94,8 +98,7 @@ int main (int argc, char * const argv[]) {
     
     REP(vertex,num_of_vertices)
     tab[1<<vertex][vertex]=graph[source][vertex],tab[source][vertex]=0;
-    time_point<system_clock> start,end;
-    start=system_clock::now();
+    
     LL min_cost=solve( (1<<num_of_vertices) -1 ,source);
     find_best_hamilton_cycle((1<<num_of_vertices) -1 ,source, min_cost);
     end=system_clock::now();

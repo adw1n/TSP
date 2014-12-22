@@ -14,9 +14,11 @@
 #include <functional>
 #include <tuple>
 #include <cassert>
+#include <chrono>
+
 #include "Tree.h"
 using namespace std;
-
+using namespace chrono;
 typedef vector<int> VI;
 
 #define FOR(x, b, e) for(int x = b; x <= (e); ++x)
@@ -31,7 +33,7 @@ typedef vector<int> VI;
 #define ND second
 #define MP make_pair
 //kinda implemented http://www.geeksforgeeks.org/greedy-algorithms-set-5-prims-minimum-spanning-tree-mst-2/
-//all credit goes to the author of that post
+//all credit goes to the author of that post or Prim
 template<class T>
 class Graph{
     vector<vector<T> > adj;//adjacency matrix
@@ -79,16 +81,16 @@ public:
         T min=INF;
         REP(start,SIZE(possible_traversals)){
             T poss_min=0;
-            cout<<"start: "<<start<<endl;
+//            cout<<"start: "<<start<<endl;
             REP(vertex,SIZE(possible_traversals[start])){
-                cout<<possible_traversals[start][vertex]<<" ";
+//                cout<<possible_traversals[start][vertex]<<" ";
                 poss_min+=adj[possible_traversals[start][vertex]][possible_traversals[start][vertex+1]];
             }
             if(poss_min<min){
                 min=poss_min;
                 best_start=start;
             }
-            cout<<"mozliwa wart min: "<<poss_min<<endl;
+//            cout<<"mozliwa wart min: "<<poss_min<<endl;
         }
         return make_pair(min,possible_traversals[best_start]);
     }
@@ -96,10 +98,12 @@ public:
 };
 int main (int argc, char * const argv[]) {
 #ifndef ONLINE_JUDGE
-	if(!freopen("15cities_symetric.txt", "r", stdin)) cout<<"Blad odczytu in.txt"<<endl;
+	if(!freopen("12cities_symmetric.txt", "r", stdin)) cout<<"Blad odczytu in.txt"<<endl;
 	//if(!freopen("out.txt", "w", stdout)) cout<<"Blad pliku wyjsciowego"<<endl;
 #endif
 	ios_base::sync_with_stdio(0);
+    time_point<system_clock> start,end;
+    start=system_clock::now();
 	int num_of_vertices;
     
     cin>>num_of_vertices;
@@ -111,12 +115,22 @@ int main (int argc, char * const argv[]) {
             graph.addEdge(row,column,cost);
         }
     }
+    
     auto ans=graph.MST();
+    end=system_clock::now();
+    duration<double> elapsed_time=end-start;
     cout<<"WARNING! NO GUARANTEE FOR OPTIMAL SOLUTION!"<<endl;
     cout<<"Optimal tour length found by mst heuristics: "<<ans.ST <<endl;
+    cout<<"Computed in: "<<elapsed_time.count()<<" seconds."<<endl;
+//    cout<<"Do you want to see the optimal tour? (yes/no)";
+//    string odp;
+//    cin>>odp;
+//    if(odp=="Yes" or odp=="yes" or odp=="y" or odp=="YES")
+    {
     cout<<"Optimal tour found by MST heuristics: ";
     FOREACH(it, ans.ND)
     cout<<*it<<" ";
     cout<<endl;
+    }
     return 0;
 }

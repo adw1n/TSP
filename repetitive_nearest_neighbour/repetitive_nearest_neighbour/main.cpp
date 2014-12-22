@@ -12,8 +12,10 @@
 #include <map>
 #include <cmath>
 #include <functional>
-using namespace std;
+#include <chrono>
 
+using namespace std;
+using namespace chrono;
 typedef vector<int> VI;
 typedef long long LL;
 
@@ -33,11 +35,12 @@ vector<VI > tab;
 
 int main (int argc, char * const argv[]) {
 #ifndef ONLINE_JUDGE
-	if(!freopen("6cities_asymetric.txt", "r", stdin)) cout<<"Blad odczytu in.txt"<<endl;
+	if(!freopen("50cities_asymetric.txt", "r", stdin)) cout<<"Blad odczytu in.txt"<<endl;
 	//if(!freopen("out.txt", "w", stdout)) cout<<"Blad pliku wyjsciowego"<<endl;
 #endif
-	ios_base::sync_with_stdio(0);
-	LL num_of_vertices;
+    ios_base::sync_with_stdio(0);
+    time_point<system_clock> start,end;
+    start=system_clock::now();	LL num_of_vertices;
     const LL INF=1000000000; //infty
     cin>>num_of_vertices;
 	VI vertices_order;
@@ -88,8 +91,11 @@ int main (int argc, char * const argv[]) {
             min_cost=cost;
         }
     }
-    
+    end=system_clock::now();
+    duration<double> elapsed_time=end-start;
     cout<<"WARNING! NO GUARANTEE FOR OPTIMAL SOLUTION! ALGORITHM: repetitive nearest neighbour"<<endl;
+    cout<<"Computed in: "<<elapsed_time.count()<<" seconds."<<endl;
+
     cout<<"min cost "<<min_cost<<endl<<"vertices order: ";
     FOREACH(it, best_order)
     cout<<*it<<" ";

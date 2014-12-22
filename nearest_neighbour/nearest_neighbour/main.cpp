@@ -12,8 +12,10 @@
 #include <map>
 #include <cmath>
 #include <functional>
-using namespace std;
+#include <chrono>
 
+using namespace std;
+using namespace chrono;
 typedef vector<int> VI;
 typedef long long LL;
 
@@ -32,10 +34,12 @@ vector<set<pair<LL,LL> > > graph; //pair::first cost, pair::second vertex num
 vector<VI > tab;
 int main (int argc, char * const argv[]) {
 #ifndef ONLINE_JUDGE
-	if(!freopen("12cities_symetric.txt", "r", stdin)) cout<<"Blad odczytu in.txt"<<endl;
+	if(!freopen("5000cities_asymetric.txt", "r", stdin)) cout<<"Blad odczytu in.txt"<<endl;
 	//if(!freopen("out.txt", "w", stdout)) cout<<"Blad pliku wyjsciowego"<<endl;
 #endif
 	ios_base::sync_with_stdio(0);
+    time_point<system_clock> start,end;
+    start=system_clock::now();
 	LL num_of_vertices;
     const LL INF=1000000000; //infty
     cin>>num_of_vertices;
@@ -44,6 +48,7 @@ int main (int argc, char * const argv[]) {
     graph.resize(num_of_vertices);
     tab.resize(num_of_vertices,VI(num_of_vertices,0));
     LL cost;
+    
     REP(row,num_of_vertices){
         REP(column, num_of_vertices){
             cin>>cost;
@@ -52,6 +57,8 @@ int main (int argc, char * const argv[]) {
             tab[row][column]=cost;
         }
     }
+    cout<<"Start programu"<<endl;
+    
     LL num_of_visited_vertices=1;
     //chosing vertex num 0 always as the starting vertex
     LL current_vertex=0;
@@ -72,9 +79,11 @@ int main (int argc, char * const argv[]) {
     }
     cost+=tab[vertices_order[0]][vertices_order[SIZE(vertices_order)-1]];
     vertices_order.PB(vertices_order[0]);
-    
+    end=system_clock::now();
+    duration<double> elapsed_time=end-start;
     
     cout<<"WARNING! NO GUARANTEE FOR OPTIMAL SOLUTION!"<<endl;
+     cout<<"Computed in: "<<elapsed_time.count()<<" seconds."<<endl;
     cout<<"min cost "<<cost<<endl<<"vertices order: ";
     FOREACH(it, vertices_order)
     cout<<*it<<" ";
