@@ -1,0 +1,11 @@
+cmake_minimum_required(VERSION 3.2.2)
+project(TSP)
+
+add_subdirectory(brute_force_all_permutations)
+add_subdirectory(brute_force_multiple_visits)
+add_subdirectory(mst_heuristic)
+add_subdirectory(nearest_neighbour)
+add_subdirectory(repetitive_nearest_neighbour)
+add_subdirectory(dynamic_programming_tsp_solution)
+add_subdirectory("10496 - Collecting Beepers")
+add_subdirectory("10496 - Collecting Beepers DP")
