@@ -14,6 +14,8 @@ or:
 ```bash
 ./TSP/build/mst_heuristic/mst_heuristic /path/to/your/input/test_file.txt
 ```
+For detailed explanation of algorithms implemented see [README.pdf](README.pdf).
+
 License:
 
 WTFPL v2 - see LICENSE.txt
